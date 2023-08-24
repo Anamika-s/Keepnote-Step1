@@ -4,6 +4,7 @@ using Keepnote_Step1.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Keepnote_Step1.Migrations
 {
     [DbContext(typeof(NoteDBContext))]
-    partial class NoteDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230824053511_addedtrainertable")]
+    partial class addedtrainertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,10 +41,7 @@ namespace Keepnote_Step1.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 24, 11, 17, 37, 553, DateTimeKind.Local).AddTicks(8076))
-                        .HasColumnName("BatchStartDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TrainerId")
                         .HasColumnType("int");
@@ -52,7 +52,7 @@ namespace Keepnote_Step1.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("tblBatch", (string)null);
+                    b.ToTable("Batches");
                 });
 
             modelBuilder.Entity("Keepnote_Step1.Models.Course", b =>
@@ -161,8 +161,7 @@ namespace Keepnote_Step1.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SecondName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()

@@ -18,13 +18,13 @@ namespace Keepnote_Step1.Repo
             _context.Notes.Add(note);
             _context.SaveChanges();
             return 1;
-            
+
         }
 
         public int Delete(int id)
         {
             var note = _context.Notes.FirstOrDefault(x => x.NoteId == id);
-            if(note!=null)
+            if (note != null)
             {
                 _context.Notes.Remove(note);
                 _context.SaveChanges();
@@ -47,7 +47,7 @@ namespace Keepnote_Step1.Repo
         public int EditNote(int id, Note note)
         {
             return 1;
-        }
+            }
 
 
     }

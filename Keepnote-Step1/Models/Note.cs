@@ -7,6 +7,9 @@
         public string Content { get; set; }
         public bool Status { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string AuthorName { get; set; }
+        public string UpdatedDate { get; set; }
+
 
     }
 }

@@ -4,6 +4,7 @@ using Keepnote_Step1.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Keepnote_Step1.Migrations
 {
     [DbContext(typeof(NoteDBContext))]
-    partial class NoteDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230824052345_addedusertable")]
+    partial class addedusertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,39 +24,6 @@ namespace Keepnote_Step1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Keepnote_Step1.Models.Batch", b =>
-                {
-                    b.Property<int>("BatchId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BatchId"));
-
-                    b.Property<string>("BatchName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 24, 11, 17, 37, 553, DateTimeKind.Local).AddTicks(8076))
-                        .HasColumnName("BatchStartDate");
-
-                    b.Property<int>("TrainerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BatchId");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("TrainerId");
-
-                    b.ToTable("tblBatch", (string)null);
-                });
 
             modelBuilder.Entity("Keepnote_Step1.Models.Course", b =>
                 {
@@ -111,34 +81,6 @@ namespace Keepnote_Step1.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("Keepnote_Step1.Models.Trainer", b =>
-                {
-                    b.Property<int>("TrainerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrainerId"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Domain")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TrainerId");
-
-                    b.ToTable("Trainers");
-                });
-
             modelBuilder.Entity("Keepnote_Step1.Models.User", b =>
                 {
                     b.Property<string>("Email")
@@ -161,8 +103,7 @@ namespace Keepnote_Step1.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SecondName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -171,25 +112,6 @@ namespace Keepnote_Step1.Migrations
                     b.HasKey("Email");
 
                     b.ToTable("tblUsers");
-                });
-
-            modelBuilder.Entity("Keepnote_Step1.Models.Batch", b =>
-                {
-                    b.HasOne("Keepnote_Step1.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Keepnote_Step1.Models.Trainer", "Trainer")
-                        .WithMany()
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Trainer");
                 });
 #pragma warning restore 612, 618
         }
